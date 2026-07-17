@@ -1,0 +1,650 @@
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+  :root{
+    --bg: #0a0f14;
+    --bg-panel: #0f161d;
+    --bg-panel-alt: #121a22;
+    --grid-line: #17212b;
+    --border: #223040;
+    --teal: #2dd4bf;
+    --teal-dim: rgba(45,212,191,0.35);
+    --amber: #f5a623;
+    --text: #e8edf2;
+    --text-muted: #8b98a5;
+    --text-faint: #56646f;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background:
+      linear-gradient(var(--grid-line) 1px, transparent 1px) 0 0/100% 44px,
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px) 0 0/44px 100%,
+      var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  ::selection{ background: var(--teal-dim); color: var(--text); }
+
+  .mono{ font-family: 'JetBrains Mono', monospace; }
+
+  .wrap{
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position: sticky; top:0; z-index: 50;
+    background: rgba(10,15,20,0.85);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+  nav .wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    height: 62px;
+  }
+  .nav-id{
+    font-family:'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--teal);
+    letter-spacing: 0.5px;
+  }
+  .nav-links{ display:flex; gap:28px; }
+  .nav-links a{
+    font-family:'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    color: var(--text-muted);
+    letter-spacing: 0.3px;
+    transition: color .2s ease;
+  }
+  .nav-links a:hover{ color: var(--teal); }
+
+  /* ---------- HERO ---------- */
+  header.hero{
+    padding: 84px 0 40px;
+    position: relative;
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    color: var(--teal);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    display:flex; align-items:center; gap:10px;
+    margin-bottom: 22px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:8px; height:8px; border-radius:50%;
+    background: var(--teal);
+    box-shadow: 0 0 0 4px var(--teal-dim);
+  }
+  h1.name{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: clamp(40px, 7vw, 68px);
+    line-height: 1.05;
+    letter-spacing: -1px;
+    max-width: 780px;
+  }
+  .tagline{
+    margin-top: 22px;
+    font-size: 18px;
+    color: var(--text-muted);
+    max-width: 620px;
+  }
+  .tagline strong{ color: var(--text); font-weight: 500; }
+
+  .hero-actions{
+    margin-top: 34px;
+    display:flex; gap:14px; flex-wrap: wrap;
+  }
+  .btn{
+    font-family:'JetBrains Mono', monospace;
+    font-size: 13px;
+    padding: 12px 20px;
+    border-radius: 3px;
+    border: 1px solid var(--border);
+    transition: border-color .2s ease, background .2s ease;
+  }
+  .btn-primary{
+    background: var(--teal);
+    color: #052620;
+    font-weight: 600;
+    border-color: var(--teal);
+  }
+  .btn-primary:hover{ background: #5eead4; }
+  .btn-ghost:hover{ border-color: var(--teal); color: var(--teal); }
+
+  /* waveform */
+  .waveform{ margin-top: 56px; height: 90px; width: 100%; }
+  .waveform path{
+    fill:none;
+    stroke: var(--teal);
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 1400;
+    stroke-dashoffset: 1400;
+    animation: draw 3.2s ease-out forwards, pulse 2.6s ease-in-out 3.2s infinite;
+    filter: drop-shadow(0 0 6px var(--teal-dim));
+  }
+  @keyframes draw{ to{ stroke-dashoffset: 0; } }
+  @keyframes pulse{
+    0%,100%{ opacity: .85; }
+    50%{ opacity: 1; }
+  }
+
+  /* ---------- INSTRUMENT STRIP ---------- */
+  .strip{
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: var(--bg-panel);
+  }
+  .strip .wrap{
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .strip-cell{
+    padding: 22px 20px;
+    border-right: 1px solid var(--border);
+  }
+  .strip-cell:last-child{ border-right:none; }
+  .strip-num{
+    font-family:'Space Grotesk', sans-serif;
+    font-size: 30px;
+    font-weight: 600;
+    color: var(--teal);
+  }
+  .strip-label{
+    margin-top: 4px;
+    font-family:'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    color: var(--text-muted);
+    letter-spacing: .3px;
+  }
+
+  /* ---------- SECTION SHELL ---------- */
+  section{ padding: 84px 0; }
+  .section-head{
+    display:flex; align-items:baseline; gap:14px;
+    margin-bottom: 42px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 18px;
+  }
+  .section-tag{
+    font-family:'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--teal);
+    letter-spacing: 1.5px;
+  }
+  .section-title{
+    font-family:'Space Grotesk', sans-serif;
+    font-size: 26px;
+    font-weight: 600;
+  }
+
+  /* ---------- ABOUT ---------- */
+  .about-body{
+    max-width: 700px;
+    color: var(--text-muted);
+    font-size: 16px;
+  }
+  .about-body p + p{ margin-top: 16px; }
+  .about-body strong{ color: var(--text); font-weight: 500; }
+
+  /* ---------- STACK ---------- */
+  .stack-group{ margin-bottom: 26px; }
+  .stack-group:last-child{ margin-bottom: 0; }
+  .stack-group-label{
+    font-family:'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    color: var(--text-faint);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .tags{ display:flex; flex-wrap:wrap; gap:8px; }
+  .tag{
+    font-family:'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    padding: 6px 12px;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    color: var(--text-muted);
+    background: var(--bg-panel-alt);
+  }
+
+  /* ---------- CASES / PROJECTS ---------- */
+  .cases-grid{
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+  }
+  .case{
+    border: 1px solid var(--border);
+    background: var(--bg-panel);
+    padding: 24px;
+    border-radius: 4px;
+    position: relative;
+    transition: border-color .25s ease, transform .25s ease;
+  }
+  .case:hover{ border-color: var(--teal-dim); transform: translateY(-2px); }
+  .case-title{
+    font-family:'Space Grotesk', sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .case-desc{
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+  }
+  .case-tags{ display:flex; flex-wrap:wrap; gap:6px; }
+  .case-tags span{
+    font-family:'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    color: var(--teal);
+    border: 1px solid var(--teal-dim);
+    padding: 3px 8px;
+    border-radius: 2px;
+  }
+
+  /* ---------- PUBLICATIONS ---------- */
+  .pub{
+    padding: 18px 0;
+    border-bottom: 1px solid var(--border);
+    display:flex; justify-content:space-between; gap: 20px;
+  }
+  .pub:last-child{ border-bottom:none; }
+  .pub-title{ font-size: 15px; max-width: 640px; }
+  .pub-status{
+    font-family:'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    color: var(--text-faint);
+    white-space: nowrap;
+    padding-top: 3px;
+  }
+  .pub-status.published{ color: var(--teal); }
+
+  /* ---------- TIMELINE ---------- */
+  .timeline{ position: relative; padding-left: 26px; }
+  .timeline::before{
+    content:"";
+    position:absolute; left:5px; top:6px; bottom:6px;
+    width: 1px; background: var(--border);
+  }
+  .tl-item{ position: relative; margin-bottom: 30px; }
+  .tl-item:last-child{ margin-bottom:0; }
+  .tl-item::before{
+    content:"";
+    position:absolute; left:-26px; top:5px;
+    width:9px; height:9px; border-radius:50%;
+    background: var(--bg); border: 2px solid var(--teal);
+  }
+  .tl-role{ font-weight: 600; font-size: 15.5px; }
+  .tl-org{ color: var(--text-muted); font-size: 13.5px; margin-top: 2px; }
+  .tl-date{
+    font-family:'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    color: var(--text-faint);
+    margin-top: 4px;
+  }
+  .tl-detail{ margin-top: 8px; font-size: 14px; color: var(--text-muted); max-width: 620px; }
+
+  /* ---------- EDU / CERTS / AWARDS ---------- */
+  .grid-2{ display:grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+  .edu-item{ margin-bottom: 20px; }
+  .edu-school{ font-weight: 600; font-size: 15px; }
+  .edu-detail{ color: var(--text-muted); font-size: 13.5px; margin-top: 4px; }
+  .list-plain{ list-style:none; }
+  .list-plain li{
+    font-size: 14px; color: var(--text-muted);
+    padding: 10px 0; border-bottom: 1px solid var(--border);
+  }
+  .list-plain li:last-child{ border-bottom:none; }
+  .list-plain li strong{ color: var(--text); font-weight: 500; }
+
+  /* ---------- CONTACT / FOOTER ---------- */
+  footer{
+    border-top: 1px solid var(--border);
+    padding: 64px 0 48px;
+  }
+  .contact-title{
+    font-family:'Space Grotesk', sans-serif;
+    font-size: clamp(28px, 5vw, 42px);
+    font-weight: 700;
+    max-width: 560px;
+  }
+  .contact-sub{ margin-top: 14px; color: var(--text-muted); max-width: 480px; }
+  .contact-links{
+    margin-top: 32px;
+    display:flex; flex-wrap:wrap; gap: 14px;
+  }
+  .contact-link{
+    font-family:'JetBrains Mono', monospace;
+    font-size: 13px;
+    padding: 12px 18px;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    color: var(--text-muted);
+    transition: border-color .2s ease, color .2s ease;
+  }
+  .contact-link:hover{ border-color: var(--teal); color: var(--teal); }
+  .foot-note{
+    margin-top: 56px;
+    font-family:'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    color: var(--text-faint);
+    display:flex; justify-content:space-between;
+    border-top: 1px solid var(--border);
+    padding-top: 20px;
+  }
+
+  /* reveal */
+  .reveal{ opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.in{ opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 760px){
+    .strip .wrap{ grid-template-columns: repeat(2,1fr); }
+    .strip-cell:nth-child(2n){ border-right:none; }
+    .cases-grid{ grid-template-columns: 1fr; }
+    .grid-2{ grid-template-columns: 1fr; gap: 8px; }
+    .nav-links{ gap: 16px; }
+    .pub{ flex-direction: column; gap: 6px; }
+  }
+
+</style>
+
+
+<nav>
+  <div class="wrap">
+    <div class="nav-id">TS_</div>
+    <div class="nav-links">
+      <a href="#work">Work</a>
+      <a href="#publications">Publications</a>
+      <a href="#experience">Experience</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">ML / AI Engineer &mdash; Computer Vision &mdash; Medical AI</div>
+    <h1 class="name">Tayyaba Sajjad</h1>
+    <p class="tagline">I turn clinical signals &mdash; fundus images, MRI scans, biosignals, patient records &mdash; into <strong>models that ship</strong>, not notebooks that sit. Final-year Biomedical Engineering student at UET Lahore, building the bridge between diagnosis and deployment.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#work">View Selected Work</a>
+      <a class="btn btn-ghost" href="mailto:sajjadtayyaba91@gmail.com">Get in Touch</a>
+      <a class="btn btn-ghost" href="https://www.linkedin.com/in/tayyabasajjad/">LinkedIn</a>
+      <a class="btn btn-ghost" href="https://github.com/tayyaba-code">GitHub</a>
+    </div>
+
+    <svg class="waveform" viewBox="0 0 900 90" preserveAspectRatio="none">
+      <path d="M0,45 L120,45 L145,45 L160,10 L180,80 L200,20 L215,45 L340,45 L360,45 L378,25 L396,65 L414,45 L440,45 L560,45 L580,45 L598,10 L616,80 L634,20 L650,45 L780,45 L800,45 L818,25 L836,65 L854,45 L900,45" />
+    </svg>
+  </div>
+</header>
+
+<div class="strip">
+  <div class="wrap">
+    <div class="strip-cell">
+      <div class="strip-num">10+</div>
+      <div class="strip-label">DEPLOYED ML/DL SYSTEMS</div>
+    </div>
+    <div class="strip-cell">
+      <div class="strip-num">3</div>
+      <div class="strip-label">PEER-REVIEWED PUBLICATIONS</div>
+    </div>
+    <div class="strip-cell">
+      <div class="strip-num">3.76</div>
+      <div class="strip-label">GPA &middot; OUT OF 4.0</div>
+    </div>
+    <div class="strip-cell">
+      <div class="strip-num">98.2%</div>
+      <div class="strip-label">BEST MODEL ACCURACY (SVM)</div>
+    </div>
+  </div>
+</div>
+
+<main class="wrap">
+
+  <section id="about" class="reveal">
+    <div class="section-head">
+      <span class="section-tag mono">01</span>
+      <span class="section-title">About</span>
+    </div>
+    <div class="about-body">
+      <p>I'm a final-year <strong>Biomedical Engineering</strong> student at UET Lahore with three years of hands-on ML engineering experience across medical imaging, real-time computer vision, clinical prediction, and NLP.</p>
+      <p>My work spans the full pipeline &mdash; from raw clinical data through model training to Flask/FastAPI deployment &mdash; because a model that only exists in a notebook hasn't actually solved anything yet. I've validated outputs against ophthalmologist and radiologist review, built explainability layers with SHAP for clinical trust, and published three papers along the way, including one with Springer.</p>
+      <p>Lately I've been extending that pipeline into <strong>LLM tooling</strong> &mdash; LangChain, LangGraph, FastAPI, and local inference with Ollama &mdash; while keeping the same standard: rigour that survives contact with real data.</p>
+    </div>
+  </section>
+
+  <section id="stack" class="reveal">
+    <div class="section-head">
+      <span class="section-tag mono">02</span>
+      <span class="section-title">Stack</span>
+    </div>
+
+    <div class="stack-group">
+      <div class="stack-group-label">Languages</div>
+      <div class="tags">
+        <span class="tag">Python</span><span class="tag">C++</span><span class="tag">MATLAB</span><span class="tag">SQL</span>
+      </div>
+    </div>
+    <div class="stack-group">
+      <div class="stack-group-label">ML / Deep Learning</div>
+      <div class="tags">
+        <span class="tag">TensorFlow</span><span class="tag">Keras</span><span class="tag">Scikit-learn</span><span class="tag">XGBoost</span><span class="tag">LightGBM</span><span class="tag">CNN</span><span class="tag">ANN</span><span class="tag">LSTM</span><span class="tag">Transformers (basics)</span><span class="tag">ESRGAN / RRDBNet</span><span class="tag">YOLO</span>
+      </div>
+    </div>
+    <div class="stack-group">
+      <div class="stack-group-label">Computer Vision</div>
+      <div class="tags">
+        <span class="tag">OpenCV</span><span class="tag">MediaPipe</span><span class="tag">DeepFace</span>
+      </div>
+    </div>
+    <div class="stack-group">
+      <div class="stack-group-label">Gen AI / LLM Tooling</div>
+      <div class="tags">
+        <span class="tag">LangChain</span><span class="tag">LangGraph</span><span class="tag">FastAPI</span><span class="tag">Ollama</span>
+      </div>
+    </div>
+    <div class="stack-group">
+      <div class="stack-group-label">Data &amp; Deployment</div>
+      <div class="tags">
+        <span class="tag">NumPy</span><span class="tag">Pandas</span><span class="tag">SHAP</span><span class="tag">SMOTE</span><span class="tag">PCA</span><span class="tag">Flask</span><span class="tag">REST API</span><span class="tag">Git</span><span class="tag">GitHub</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="work" class="reveal">
+    <div class="section-head">
+      <span class="section-tag mono">03</span>
+      <span class="section-title">Selected Work</span>
+    </div>
+
+    <div class="cases-grid">
+
+      <div class="case">
+        <div class="case-title">Retinal Detachment Severity Classification</div>
+        <div class="case-desc">Multi-class CNN grading retinal detachment severity from fundus images, with custom augmentation to handle severe class imbalance across four grades &mdash; validated against ophthalmologist annotations.</div>
+        <div class="case-tags"><span>CNN</span><span>TensorFlow</span><span>OpenCV</span><span>Medical Imaging</span></div>
+      </div>
+
+      <div class="case">
+        <div class="case-title">Neuro-Covid DWI Scan Enhancement</div>
+        <div class="case-desc">Adapted an RRDBNet (ESRGAN-style) architecture for single-plane MRI super-resolution, restoring DWI scans degraded by Covid-era acquisition constraints. Improvements confirmed by radiologist review.</div>
+        <div class="case-tags"><span>Super-Resolution</span><span>RRDBNet</span><span>PSNR/SSIM</span></div>
+      </div>
+
+      <div class="case">
+        <div class="case-title">Real-Time Human Emotion Detection</div>
+        <div class="case-desc">Live-stream emotion classifier combining DeepFace's 7-class recognition with MediaPipe face-mesh alignment, optimized to under 60ms per frame on CPU with a modular capture&rarr;classify&rarr;annotate pipeline.</div>
+        <div class="case-tags"><span>DeepFace</span><span>MediaPipe</span><span>Real-Time CV</span></div>
+      </div>
+
+      <div class="case">
+        <div class="case-title">Posture Correction via Landmark &amp; Gaze Analysis</div>
+        <div class="case-desc">Real-time bad-posture detector using 33-point MediaPipe skeletal landmarks and eye-gaze estimation, flagging forward-head and rounded-shoulder posture with sub-120ms correction latency.</div>
+        <div class="case-tags"><span>Pose Estimation</span><span>MediaPipe</span><span>Ergonomics</span></div>
+      </div>
+
+      <div class="case">
+        <div class="case-title">Anemia Detection from CBC Data</div>
+        <div class="case-desc">Benchmarked six classifiers on complete blood count data with SMOTE oversampling and recursive feature elimination, reaching an F1-score above 0.94 &mdash; with SHAP surfacing Hb, MCV, and RBC as top drivers.</div>
+        <div class="case-tags"><span>SHAP</span><span>SMOTE</span><span>Scikit-learn</span></div>
+      </div>
+
+      <div class="case">
+        <div class="case-title">Diabetes Risk Prediction</div>
+        <div class="case-desc">Twelve domain-informed features engineered from raw clinical records, validated with stratified 10-fold CV, and deployed as a Flask REST API for real-time patient risk scoring.</div>
+        <div class="case-tags"><span>XGBoost</span><span>Flask</span><span>REST API</span></div>
+      </div>
+
+      <div class="case">
+        <div class="case-title">Breast Cancer Detection Pipeline</div>
+        <div class="case-desc">End-to-end classification on the Wisconsin Breast Cancer dataset &mdash; outlier removal, correlation-based pruning, five classifiers compared &mdash; landing on a tuned SVM at 98.2% accuracy.</div>
+        <div class="case-tags"><span>Scikit-learn</span><span>EDA</span><span>SVM</span></div>
+      </div>
+
+      <div class="case">
+        <div class="case-title">Low-Cost Wearable Rehabilitation System</div>
+        <div class="case-desc">Multi-modal wearable streaming joint-angle (IMU) and EMG data in real time, driving adaptive knee/elbow therapy routines at roughly 70% lower cost than commercial equivalents.</div>
+        <div class="case-tags"><span>Biosignals</span><span>Embedded Systems</span></div>
+      </div>
+
+      <div class="case">
+        <div class="case-title">AI Gait Analysis System</div>
+        <div class="case-desc">Video-based gait pipeline extracting cadence, stride length, and joint-angle symmetry from walk-cycle footage &mdash; built for post-surgical rehabilitation monitoring.</div>
+        <div class="case-tags"><span>MediaPipe</span><span>Biomechanics</span></div>
+      </div>
+
+      <div class="case">
+        <div class="case-title">Cancer Prognosis from Gene Expression</div>
+        <div class="case-desc">Ensemble model (RF + XGBoost) over multi-gene RNA-seq expression profiles for personalized prognosis, with PCA for dimensionality reduction and SHAP for gene-signature explainability.</div>
+        <div class="case-tags"><span>Bioinformatics</span><span>Ensemble ML</span></div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="publications" class="reveal">
+    <div class="section-head">
+      <span class="section-tag mono">04</span>
+      <span class="section-title">Publications</span>
+    </div>
+
+    <div class="pub">
+      <div class="pub-title">Intelligent Detection of Blood Pressure Abnormalities Using Advanced Machine Learning Frameworks</div>
+      <div class="pub-status published">SPRINGER &middot; 2026</div>
+    </div>
+    <div class="pub">
+      <div class="pub-title">A Comparative Study of Supervised Machine Learning Methods for Stroke Prediction</div>
+      <div class="pub-status">UNDER REVIEW &middot; 2025&ndash;26</div>
+    </div>
+    <div class="pub">
+      <div class="pub-title">Comparative Analysis of Machine Learning Models for Early Prediction of Diabetes Mellitus in Women</div>
+      <div class="pub-status">UNDER REVIEW &middot; 2025&ndash;26</div>
+    </div>
+  </section>
+
+  <section id="experience" class="reveal">
+    <div class="section-head">
+      <span class="section-tag mono">05</span>
+      <span class="section-title">Leadership &amp; Experience</span>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-role">Head of Research &amp; Outreach</div>
+        <div class="tl-org">IEEE Society, UET Lahore</div>
+        <div class="tl-date">JAN 2026 &ndash; MAY 2026</div>
+        <div class="tl-detail">Directed research initiatives across student chapters, sourced three industry speakers, and grew outreach event attendance by 40%.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-role">Technical Director</div>
+        <div class="tl-org">Institute of Engineering &amp; Technology, UET</div>
+        <div class="tl-date">SEP 2025 &ndash; MAY 2026</div>
+        <div class="tl-detail">Managed end-to-end technical delivery for six student engineering events, leading a 12-person cross-functional team with zero missed deadlines.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-role">Girls Coordinator</div>
+        <div class="tl-org">Blood Donor Society, UET Lahore</div>
+        <div class="tl-date">SEP 2025 &ndash; MAY 2026</div>
+        <div class="tl-detail">Increased registered female volunteer count by 30% across two semesters through targeted outreach and structured onboarding.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="education" class="reveal">
+    <div class="section-head">
+      <span class="section-tag mono">06</span>
+      <span class="section-title">Education, Certifications &amp; Awards</span>
+    </div>
+
+    <div class="grid-2">
+      <div>
+        <div class="edu-item">
+          <div class="edu-school">Bachelor of Biomedical Engineering</div>
+          <div class="edu-detail">University of Engineering &amp; Technology, Lahore &middot; Sep 2023 &ndash; May 2027</div>
+          <div class="edu-detail">GPA 3.76/4.0 (5 semesters completed) &middot; Machine Learning, Signal Processing, Medical Instrumentation, Biostatistics, Digital Image Processing</div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-school">Intermediate &mdash; Pre-Medical</div>
+          <div class="edu-detail">Superior Group of Colleges, Vehari &middot; 2021 &ndash; 2023</div>
+        </div>
+        <ul class="list-plain">
+          <li><strong>Hoonhar Scholarship &amp; Laptop</strong> &mdash; Prime Minister's National Scheme, 2026 (merit-based, top academic performers nationwide)</li>
+        </ul>
+      </div>
+      <div>
+        <ul class="list-plain">
+          <li><strong>AI for Medical Diagnosis</strong> &mdash; DeepLearning.AI (Coursera)</li>
+          <li><strong>IBM Generative AI Engineering</strong> &mdash; IBM (Coursera)</li>
+          <li><strong>AI in Healthcare</strong> &mdash; Stanford University (Coursera)</li>
+          <li><strong>Mathematics for Machine Learning and Data Science</strong> &mdash; DeepLearning.AI (Coursera)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="contact-title">Let's build something that ships.</div>
+    <p class="contact-sub">Open to ML/AI engineering roles and research collaborations &mdash; especially where clinical rigour meets real-world deployment.</p>
+    <div class="contact-links">
+      <a class="contact-link" href="mailto:sajjadtayyaba91@gmail.com">sajjadtayyaba91@gmail.com</a>
+      <a class="contact-link" href="https://www.linkedin.com/in/tayyabasajjad/">LinkedIn ↗</a>
+      <a class="contact-link" href="https://github.com/tayyaba-code">GitHub ↗</a>
+    </div>
+    <div class="foot-note">
+      <span>TAYYABA SAJJAD</span>
+      <span>LAHORE, PAKISTAN</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const els = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.12 });
+  els.forEach(el => io.observe(el));
+</script>
+
