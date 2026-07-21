@@ -1,0 +1,39 @@
+# Personal documents
+*.pdf
+*.docx
+*.jpeg
+*.jpg
+*.png
+
+# Specific files
+kai,.jpeg
+bds shield.jpeg
+bds_offer-letter.png
+DMC.pdf
+Domicle.jpeg
+id_card.pdf
+inter_results.jpeg
+metric result.jpeg
+passport.pdf
+student_card.pdf
+Saad's CV.pdf
+Tayyaba_Sajjad_CV (1).pdf
+generic sop.docx
+sop_kaust.docx
+bushra_photo.jpg
+bushra_photo.png
+laraib_photo.jpeg
+laraib_photo.jpg
+
+# Directories with personal content
+certificates/
+lab/
+others/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# OS files
+Thumbs.db
+.DS_Store
